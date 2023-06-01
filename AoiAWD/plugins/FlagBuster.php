@@ -19,7 +19,8 @@ class FlagBuster
         $buffer = &$data['buffer'];
         $flagCount = 0;
         $fakeFlag = $this->generateFakeFlag();
-        $buffer = preg_replace('/\{\"flag\"\:\"(.*)\"/mi', $fakeFlag, $buffer, -1, $flagCount);
+        //$buffer = preg_replace('/\{\"flag\"\:\"(.*)\"/mi', $fakeFlag, $buffer, -1, $flagCount);
+        $buffer = preg_replace('/(.*)flag(.*)/mi', $fakeFlag, $buffer, -1, $flagCount);
         if ($flagCount > 0) {
             $this->pluginManager->getInvoker()->setAlert('FlagBuster', "发现本次Web应答包含flag字段，已被替换为: {$fakeFlag}");
         }
